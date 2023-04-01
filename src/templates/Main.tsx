@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-import LeftSidebar from "@/layout/LeftSidebar/LeftSidebar";
-import RightSidebar from "@/layout/RightSidebar/RightSidebar";
+import RightSidebar from "@/layout/RightSidebar";
+import LeftSidebar from "@/layout/LeftSidebar";
 
 type IMainProps = {
   meta: ReactNode;

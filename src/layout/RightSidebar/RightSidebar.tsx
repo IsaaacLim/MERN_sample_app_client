@@ -1,7 +1,8 @@
 import React from "react";
-import RightSidebarAnnouncement from "./RightSidebarAnnouncement";
+// import RightSidebarAnnouncement from "./RightSidebarAnnouncement";
 import RightSidebarSearch from "./RightSidebarSearch";
 import RightSidebarLinks from "./RightSidebarLinks";
+import RightSidebarAnnouncement from "./RightSidebarAnnouncement";
 
 const RightSidebar = () => {
   return (
