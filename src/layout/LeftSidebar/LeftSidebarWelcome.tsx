@@ -4,7 +4,7 @@ const Welcome = () => {
   return (
     <div
       id="dropdown-cta"
-      className="p-4 mt-6 rounded-lg bg-blue-50 dark:bg-blue-900"
+      className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900"
       role="alert"
     >
       <div className="flex items-center mb-3">
