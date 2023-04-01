@@ -47,12 +47,12 @@ const NavButton = ({
 
 export const PrevButton = ({ enabled, onClick }: IButton) => (
   <NavButton onClick={onClick} disabled={!enabled}>
-    <HiOutlineChevronLeft className="text-xl text-gray-100" />
+    <HiOutlineChevronLeft className="text-xl text-blue-900 dark:text-gray-100" />
   </NavButton>
 );
 
 export const NextButton = ({ enabled, onClick }: IButton) => (
   <NavButton onClick={onClick} disabled={!enabled}>
-    <HiOutlineChevronRight className="text-xl text-gray-100" />
+    <HiOutlineChevronRight className="text-xl text-blue-900 dark:text-gray-100" />
   </NavButton>
 );

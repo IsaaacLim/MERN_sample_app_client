@@ -122,7 +122,19 @@
   content: "";
 }
 
+@media (prefers-color-scheme: dark) {
+  .embla__dot:after {
+  background-color: #434684;
+  }
+}
+
 .embla__dot.is-selected:after {
-  background-color: #014A37;
+  background-color: #113c70;
   opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .embla__dot.is-selected:after {
+  background-color: #cbd1ff;
+  }
 }

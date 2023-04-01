@@ -13,7 +13,9 @@ const Main = (props: IMainProps) => {
     <div className="antialiased flex">
       {props.meta}
       <LeftSidebar />
-      <div className="p-4 sm:mx-64 w-full">{props.children}</div>
+      <div className="w-full min-h-screen p-4 sm:mx-64 bg-gray-50 dark:bg-gray-900">
+        {props.children}
+      </div>
       <RightSidebar />
     </div>
   );
