@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import { quickLinksGetAll } from "@/api/quickLinks";
 import { useQuery } from "@tanstack/react-query";
 import { HiOutlineExternalLink } from "react-icons/hi";
-
-type IQuickLinks = {
-  _id: string;
-  title: string;
-  text: string;
-  link: string;
-}[];
+import { IQuickLinks } from "@/interfaces/QuickLink";
 
 const RightSidebarLinks = () => {
   const [quickLinks, setQuickLinks] = useState<IQuickLinks>([]);
