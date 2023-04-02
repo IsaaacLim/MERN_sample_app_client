@@ -1,11 +1,14 @@
 import axios, { HeadersDefaults } from "axios";
+import { toast } from "react-hot-toast";
 
-const axiosClient = axios.create();
-
-axiosClient.defaults.baseURL =
+const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://api.example.org/"
     : "http://localhost:3500";
+
+const axiosClient = axios.create();
+
+axiosClient.defaults.baseURL = baseURL;
 
 type headers = {
   "Content-Type": string;
@@ -29,6 +32,46 @@ axiosClient.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
+  }
+);
+
+// Refreshing expired Access Token
+axiosClient.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (err) => {
+    const originalConfig = err.config;
+    console.log({ err, originalConfig });
+
+    if (originalConfig.url !== "/auth" && err.response) {
+      // Access Token was expired
+      if (err.response.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true;
+
+        try {
+          const rs = await axios.post(`${baseURL}/auth/refresh`);
+
+          const access = rs.data["accessToken"];
+
+          localStorage.setItem("access-token", access);
+
+          return axiosClient(originalConfig);
+        } catch (_error) {
+          console.log(_error);
+          toast.error("Session time out. Please login again.", {
+            id: "sessionTimeOut",
+          });
+          // Logging out the user by removing all the tokens from local
+          localStorage.removeItem("access-token");
+          // Redirecting the user to the landing page
+          window.location.href = window.location.origin;
+          return Promise.reject(_error);
+        }
+      }
+    }
+
+    return Promise.reject(err);
   }
 );
 
