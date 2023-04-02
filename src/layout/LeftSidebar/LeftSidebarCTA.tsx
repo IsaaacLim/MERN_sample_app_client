@@ -1,6 +1,24 @@
+import { authLogout } from "@/api/auth";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { toast } from "react-hot-toast";
 
 const LeftSidebarCTA = () => {
+  const { refetch } = useQuery(
+    ["logout"],
+    async () => {
+      return await authLogout();
+    },
+    { refetchOnWindowFocus: false, enabled: false }
+  );
+
+  const logout = () => {
+    refetch();
+    localStorage.removeItem("access-token");
+    localStorage.removeItem("refresh-token");
+    toast.success("Logged out");
+  };
+
   return (
     <div
       id="dropdown-cta"
@@ -8,17 +26,12 @@ const LeftSidebarCTA = () => {
       role="alert"
     >
       <div className="flex items-center mb-3">
-        <span className="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
-          Beta
-        </span>
         <button
           type="button"
-          className="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 inline-flex h-6 w-6 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
-          data-dismiss-target="#dropdown-cta"
-          aria-label="Close"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          onClick={logout}
         >
-          <span className="sr-only">Close</span>
-          {/* icon */}
+          Logout
         </button>
       </div>
       <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
