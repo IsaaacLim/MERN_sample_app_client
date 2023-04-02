@@ -1,11 +1,12 @@
 import { authLogout } from "@/api/auth";
 import useAuth from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-hot-toast";
 
 const LeftSidebarCTA = () => {
-  const { username } = useAuth();
+  const router = useRouter();
 
   const { refetch } = useQuery(
     ["logout"],
@@ -20,6 +21,7 @@ const LeftSidebarCTA = () => {
     localStorage.removeItem("access-token");
     localStorage.removeItem("refresh-token");
     toast.success("Logged out");
+    router.push("/");
   };
 
   return (
@@ -48,9 +50,9 @@ const LeftSidebarCTA = () => {
           </p>
           <a
             className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-            href="#"
+            href="/login"
           >
-            Turn new navigation off
+            Login
           </a>
         </div>
       )}
