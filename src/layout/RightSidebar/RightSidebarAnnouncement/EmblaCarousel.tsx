@@ -3,6 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { DotButton, NextButton, PrevButton } from "./EmblaCarouselButtons";
+import AnnouncementCard from "./AnnouncementCard";
 
 const announcements = [
   {
@@ -68,8 +69,11 @@ const EmblaCarousel = () => {
                 {/* embla__slide__inner */}
                 <div className="relative">
                   {/* embla_slide_img */}
-                  <div className="min-h-full w-auto min-w-full bg-white">
-                    {announcement.title} {announcement.text}
+                  <div className="min-h-full w-auto min-w-full">
+                    <AnnouncementCard
+                      title={announcement.title}
+                      text={announcement.text}
+                    />
                   </div>
                 </div>
               </div>
