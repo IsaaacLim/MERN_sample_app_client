@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LoginData, postUserData } from "@/hooks/useUserLogin";
+import { LoginData, authLogin } from "@/api/auth";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -16,11 +16,11 @@ const LoginForm = () => {
     mutate: login,
     isSuccess,
     isError,
-  } = useMutation((data: LoginData) => postUserData(data), {});
+  } = useMutation((data: LoginData) => authLogin(data), {});
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Login Successful!");
+      toast.success("Login Successful! Redirecting...");
       localStorage.setItem("access-token", data.auth_token);
       localStorage.setItem("refresh-token", data.refresh_token);
       router.push("/");
