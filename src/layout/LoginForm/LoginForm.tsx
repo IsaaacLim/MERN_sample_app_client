@@ -21,10 +21,8 @@ const LoginForm = () => {
     if (isSuccess) {
       toast.success("Login Successful! Redirecting...");
       localStorage.setItem("access-token", data.auth_token);
-      localStorage.setItem("refresh-token", data.refresh_token);
       router.push("/");
     } else if (isError) {
-      console.log("Error");
       toast.error("Login failed!");
     } else return;
   }, [isSuccess, isError]);
