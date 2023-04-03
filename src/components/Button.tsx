@@ -23,7 +23,7 @@ const Button = ({ label, onClick, type, isLoading = false }: IButton) => {
       return (
         <button
           type="button"
-          className="flex items-center py-2 px-4 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-400 dark:border-red-400 dark:hover:text-red-300 dark:hover:bg-gray-700"
+          className="flex items-center py-2 px-4 text-xs font-medium text-red-900 focus:outline-none bg-white rounded-lg border border-red-400 hover:bg-red-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-400 dark:border-red-400 dark:hover:text-red-300 dark:hover:bg-gray-700"
           onClick={onClick}
           disabled={isLoading}
         >
