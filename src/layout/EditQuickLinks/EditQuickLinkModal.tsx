@@ -11,6 +11,8 @@ import {
 } from "@/api/quickLinks";
 import { toast } from "react-hot-toast";
 
+// Todo: fix delete quicklink
+
 const EditQuickLinkModal = ({ quickLink }: { quickLink: IQuickLink }) => {
   let [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState(quickLink.title);
@@ -165,7 +167,7 @@ const EditQuickLinkModal = ({ quickLink }: { quickLink: IQuickLink }) => {
                       type="alternative"
                       label="Delete"
                       onClick={() => deleteQuickLink.refetch()}
-                      isLoading={deleteQuickLink.isLoading}
+                      // isLoading={deleteQuickLink.isLoading}
                     />
                   </div>
                 </div>

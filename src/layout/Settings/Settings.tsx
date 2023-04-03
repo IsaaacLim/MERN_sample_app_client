@@ -7,6 +7,7 @@ import Link from "next/link";
 
 const Settings = () => {
   const [username, setUsername] = useState<string>("");
+  const [isAllowed, setIsAllowed] = useState<boolean>(false);
 
   useEffect(() => {
     const token =
@@ -16,8 +17,9 @@ const Settings = () => {
 
     if (token) {
       const decoded = jwtDecode<IUserInfo>(token);
-      const { username: name } = decoded.UserInfo;
+      const { username: name, roles } = decoded.UserInfo;
       setUsername(name);
+      setIsAllowed(roles.includes("admin") || roles.includes("sudo"));
     }
   }, []);
 
@@ -26,7 +28,7 @@ const Settings = () => {
       <h1 className="text-3xl mb-8 font-bold leading-tight tracking-tight text-gray-900 md:text-4xl dark:text-white">
         Settings
       </h1>
-      {!username ? (
+      {!(username && isAllowed) ? (
         <div>
           <h2 className="text-xl mb-4 font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
             Oops! Please login as an admin to modify the Carousel and Quick
