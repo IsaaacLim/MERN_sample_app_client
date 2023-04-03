@@ -29,9 +29,9 @@ const EditQuickLinks = () => {
   }
 
   return (
-    <ul className="grid grid-flow-col grid-col-3 gap-2">
+    <ul className="flex flex-wrap gap-2">
       {quickLinks.map((quickLink) => (
-        <li key={quickLink._id} className="col-span-1">
+        <li key={quickLink._id} className="w-[32.6%]">
           <EditQuickLink quickLink={quickLink} />
         </li>
       ))}
