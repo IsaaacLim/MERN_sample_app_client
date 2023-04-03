@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? "https://mern-sample-app.onrender.com"
+    ? "https://mern-sample-app-api.onrender.com"
     : "http://localhost:3500";
 
 const axiosClient = axios.create();
