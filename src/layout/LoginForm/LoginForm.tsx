@@ -37,10 +37,7 @@ const LoginForm = () => {
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
+        <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
           <Image
             className="mr-2"
             width={30}
@@ -49,7 +46,7 @@ const LoginForm = () => {
             alt="logo"
           />
           Flowbite
-        </a>
+        </div>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -111,12 +108,9 @@ const LoginForm = () => {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-blue-500 hover:underline"
-                >
+                <p className="text-sm font-medium text-blue-500 hover:underline cursor-not-allowed">
                   Forgot password?
-                </a>
+                </p>
               </div>
               <button
                 type="submit"
@@ -127,12 +121,9 @@ const LoginForm = () => {
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-blue-500 hover:underline"
-                >
+                <span className="font-medium text-blue-500 hover:underline cursor-not-allowed">
                   Sign up
-                </a>
+                </span>
               </p>
             </form>
           </div>

@@ -1,18 +1,19 @@
 import React from "react";
 import { MdFavoriteBorder, MdOutlineAccessTime } from "react-icons/md";
 import { FiHome, FiSettings, FiShoppingCart } from "react-icons/fi";
+import Link from "next/link";
 
 const LeftSidebarLinks = () => {
   return (
     <ul className="mt-6 space-y-2 font-medium">
       <li>
-        <a
+        <Link
           href="/"
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           <FiHome />
           <span className="flex-1 ml-3">Home</span>
-        </a>
+        </Link>
       </li>
       <li>
         <p className="flex items-center p-2 text-gray-500 hover:cursor-not-allowed">
@@ -33,13 +34,13 @@ const LeftSidebarLinks = () => {
         </p>
       </li>
       <li>
-        <a
+        <Link
           href="/settings"
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           <FiSettings />
           <span className="flex-1 ml-3">Settings</span>
-        </a>
+        </Link>
       </li>
     </ul>
   );
