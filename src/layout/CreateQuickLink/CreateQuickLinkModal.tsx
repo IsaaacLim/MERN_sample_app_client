@@ -2,9 +2,9 @@ import React, { Fragment, useEffect } from "react";
 import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "@/components/Button";
-import { IQuickLink, QuickLinkCreateData } from "@/interfaces/QuickLink";
-import { useMutation } from "@tanstack/react-query";
-import { quickLinkCreate } from "@/api/quickLinks";
+import { QuickLinkCreateData } from "@/interfaces/QuickLink";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { quickLinkCreate, quickLinksGetAll } from "@/api/quickLinks";
 import { toast } from "react-hot-toast";
 
 const CreateQuickLinkModal = () => {
@@ -12,6 +12,14 @@ const CreateQuickLinkModal = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [link, setLink] = useState("");
+
+  const { refetch } = useQuery(
+    ["quickLinks"],
+    async () => {
+      return await quickLinksGetAll();
+    },
+    { refetchOnWindowFocus: false, enabled: false }
+  );
 
   const {
     mutate: create,
@@ -27,6 +35,7 @@ const CreateQuickLinkModal = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Created quick link!");
+      refetch();
       setIsOpen(false);
     } else if (isError) {
       toast.error("Failed to create quick link");

@@ -7,27 +7,16 @@ import { toast } from "react-hot-toast";
 
 const EditQuickLinks = () => {
   const [quickLinks, setQuickLinks] = useState<IQuickLinks>([]);
-  const [selectedQuickLink, setSelectedQuickLink] = useState<IQuickLink>();
-  const { data, isLoading, isSuccess, isError } = useQuery(
-    ["quickLinksssss"],
+  const { data, isLoading, isSuccess, isError, isFetching } = useQuery(
+    ["quickLinks"],
     async () => {
       return await quickLinksGetAll();
     }
   );
-  const deleteQuickLink = useQuery(
-    ["deleteQuickLink", selectedQuickLink?._id],
-    async (data) => {
-      return await quickLinkDelete({ id: data }).then((res) => {
-        toast.success("Quick link deleted successfully");
-      });
-    },
-    { refetchOnWindowFocus: false, enabled: false }
-  );
 
   useEffect(() => {
-    if (!isSuccess) return;
-    setQuickLinks(data?.data);
-  }, [isSuccess]);
+    if (!isFetching && isSuccess) setQuickLinks(data?.data);
+  }, [isSuccess, isFetching]);
 
   if (isLoading) return <p>Loading ..</p>;
 
@@ -43,11 +32,7 @@ const EditQuickLinks = () => {
     <ul className="grid grid-flow-col grid-col-3 gap-2">
       {quickLinks.map((quickLink) => (
         <li key={quickLink._id} className="col-span-1">
-          <EditQuickLink
-            quickLink={quickLink}
-            deleteQuickLink={deleteQuickLink}
-            setSelectedQuickLink={setSelectedQuickLink}
-          />
+          <EditQuickLink quickLink={quickLink} />
         </li>
       ))}
     </ul>

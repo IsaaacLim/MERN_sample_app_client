@@ -4,7 +4,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import Button from "@/components/Button";
 import { IQuickLink, QuickLinkEditData } from "@/interfaces/QuickLink";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { quickLinkDelete, quickLinkEdit } from "@/api/quickLinks";
+import {
+  quickLinkDelete,
+  quickLinkEdit,
+  quickLinksGetAll,
+} from "@/api/quickLinks";
 import { toast } from "react-hot-toast";
 
 const EditQuickLinkModal = ({ quickLink }: { quickLink: IQuickLink }) => {
@@ -12,6 +16,14 @@ const EditQuickLinkModal = ({ quickLink }: { quickLink: IQuickLink }) => {
   const [title, setTitle] = useState(quickLink.title);
   const [text, setText] = useState(quickLink.text);
   const [link, setLink] = useState(quickLink.link);
+
+  const { refetch } = useQuery(
+    ["quickLinks"],
+    async () => {
+      return await quickLinksGetAll();
+    },
+    { refetchOnWindowFocus: false, enabled: false }
+  );
 
   const {
     mutate: edit,
@@ -24,6 +36,7 @@ const EditQuickLinkModal = ({ quickLink }: { quickLink: IQuickLink }) => {
     async () => {
       return await quickLinkDelete({ id: quickLink._id }).then((res) => {
         toast.success("Quick link deleted successfully");
+        refetch();
         setIsOpen(false);
       });
     },
@@ -38,6 +51,7 @@ const EditQuickLinkModal = ({ quickLink }: { quickLink: IQuickLink }) => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Edited quick link!");
+      refetch();
       setIsOpen(false);
     } else if (isError) {
       toast.error("Failed to edit quick link");

@@ -6,7 +6,7 @@ import { IQuickLinks } from "@/interfaces/QuickLink";
 
 const RightSidebarLinks = () => {
   const [quickLinks, setQuickLinks] = useState<IQuickLinks>([]);
-  const { data, isLoading, isSuccess, isError } = useQuery(
+  const { data, isLoading, isSuccess, isError, isFetching } = useQuery(
     ["quickLinks"],
     async () => {
       return await quickLinksGetAll();
@@ -14,9 +14,8 @@ const RightSidebarLinks = () => {
   );
 
   useEffect(() => {
-    if (!isSuccess) return;
-    setQuickLinks(data?.data);
-  }, [isSuccess]);
+    if (!isFetching && isSuccess) setQuickLinks(data?.data);
+  }, [isSuccess, isFetching]);
 
   if (isLoading) return <p>Loading ..</p>;
 
