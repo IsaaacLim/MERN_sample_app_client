@@ -44,44 +44,56 @@ axiosClient.interceptors.response.use(
     const originalConfig = err.config;
     console.log({ err, originalConfig });
 
-    if (originalConfig.url !== "/auth" && err.response) {
+    if (originalConfig.url !== "auth" && err.response) {
       // Access Token was expired
-      if (err.response.status === 401 && !originalConfig._retry) {
+      //   if (err.response.status === 401 && !originalConfig._retry) {
+      //     originalConfig._retry = true;
+
+      //     try {
+      //       const rs = await axios.post(`${baseURL}/auth/refresh`);
+
+      //       const access = rs.data["accessToken"];
+
+      //       localStorage.setItem("access-token", access);
+
+      //       return axiosClient(originalConfig);
+      //     } catch (_error) {
+      //       console.log(_error);
+      //       toast.error("Session time out. Please login again. Redirecting...", {
+      //         id: "sessionTimeOut",
+      //       });
+      //       // Logging out the user by removing all the tokens from local
+      //       localStorage.removeItem("access-token");
+      //       // Redirecting the user to the login page
+      //       window.location.href = `${window.location.origin}/login`;
+      //       return Promise.reject(_error);
+      //     }
+      //   } else if (err.response.status === 403) {
+      //     toast.error("Session time out. Please login again. Redirecting...", {
+      //       id: "sessionTimeOut",
+      //     });
+      //     // Refresh Token was expired
+      //     try {
+      //       await axios.post(`${baseURL}/auth/logout`);
+      //       localStorage.removeItem("access-token");
+      //       // Redirecting the user to the login page
+      //       window.location.href = `${window.location.origin}/login`;
+      //       return axiosClient(originalConfig);
+      //     } catch (_error) {
+      //       console.log(_error);
+      //     }
+      //   }
+      // }
+
+      if (err.response.status === 401 || err.response.status === 403) {
         originalConfig._retry = true;
-
-        try {
-          const rs = await axios.post(`${baseURL}/auth/refresh`);
-
-          const access = rs.data["accessToken"];
-
-          localStorage.setItem("access-token", access);
-
-          return axiosClient(originalConfig);
-        } catch (_error) {
-          console.log(_error);
-          toast.error("Session time out. Please login again. Redirecting...", {
-            id: "sessionTimeOut",
-          });
-          // Logging out the user by removing all the tokens from local
-          localStorage.removeItem("access-token");
-          // Redirecting the user to the login page
-          window.location.href = `${window.location.origin}/login`;
-          return Promise.reject(_error);
-        }
-      } else if (err.response.status === 403) {
         toast.error("Session time out. Please login again. Redirecting...", {
           id: "sessionTimeOut",
         });
-        // Refresh Token was expired
-        try {
-          await axios.post(`${baseURL}/auth/logout`);
-          localStorage.removeItem("access-token");
-          // Redirecting the user to the login page
-          window.location.href = `${window.location.origin}/login`;
-          return axiosClient(originalConfig);
-        } catch (_error) {
-          console.log(_error);
-        }
+        // Logging out the user by removing all the tokens from local
+        localStorage.removeItem("access-token");
+        // Redirecting the user to the login page
+        window.location.href = `${window.location.origin}/login`;
       }
     }
 
