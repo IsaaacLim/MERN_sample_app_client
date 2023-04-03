@@ -59,14 +59,28 @@ axiosClient.interceptors.response.use(
           return axiosClient(originalConfig);
         } catch (_error) {
           console.log(_error);
-          toast.error("Session time out. Please login again.", {
+          toast.error("Session time out. Please login again. Redirecting...", {
             id: "sessionTimeOut",
           });
           // Logging out the user by removing all the tokens from local
           localStorage.removeItem("access-token");
-          // Redirecting the user to the landing page
-          window.location.href = window.location.origin;
+          // Redirecting the user to the login page
+          window.location.href = `${window.location.origin}/login`;
           return Promise.reject(_error);
+        }
+      } else if (err.response.status === 403) {
+        toast.error("Session time out. Please login again. Redirecting...", {
+          id: "sessionTimeOut",
+        });
+        // Refresh Token was expired
+        try {
+          await axios.post(`${baseURL}/auth/logout`);
+          localStorage.removeItem("access-token");
+          // Redirecting the user to the login page
+          window.location.href = `${window.location.origin}/login`;
+          return axiosClient(originalConfig);
+        } catch (_error) {
+          console.log(_error);
         }
       }
     }
