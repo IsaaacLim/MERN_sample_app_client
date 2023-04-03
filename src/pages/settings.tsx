@@ -1,21 +1,12 @@
-import CreateQuickLink from "@/layout/CreateQuickLink";
-import EditQuickLinks from "@/layout/EditQuickLinks";
 import { Meta } from "@/layout/Meta";
+import Settings from "@/layout/Settings";
 import { Main } from "@/templates/Main";
 import React from "react";
 
 const settings = () => {
   return (
     <Main meta={<Meta title="MERN | Settings" description="Settings page" />}>
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-          Settings
-        </h1>
-        <CreateQuickLink />
-      </div>
-      <div className="mt-6">
-        <EditQuickLinks />
-      </div>
+      <Settings />
     </Main>
   );
 };
