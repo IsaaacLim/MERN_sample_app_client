@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 
-type IUserInfo = {
+export type IUserInfo = {
   UserInfo: {
     username: string;
     roles: ["admin" | "customer" | "sudo"];

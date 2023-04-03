@@ -1,10 +1,22 @@
-import { usersGetAll } from "@/api/users";
-import useAuth from "@/hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import { IUserInfo } from "@/hooks/useAuth";
+import jwtDecode from "jwt-decode";
+import React, { useEffect, useState } from "react";
 
 const Welcome = () => {
-  const { username } = useAuth();
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem("access-token")
+        : null;
+
+    if (token) {
+      const decoded = jwtDecode<IUserInfo>(token);
+      const { username: name } = decoded.UserInfo;
+      setUsername(name);
+    }
+  }, []);
 
   return (
     <div
@@ -17,7 +29,7 @@ const Welcome = () => {
           Hi, {username}
         </p>
       )}
-      <p className="mb-3 text-lg font-bold text-blue-800 dark:text-blue-400">
+      <p className="text-lg font-bold text-blue-800 dark:text-blue-400">
         Welcome to Access Workspace!
       </p>
     </div>

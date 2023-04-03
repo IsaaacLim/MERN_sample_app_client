@@ -1,12 +1,28 @@
 import { authLogout } from "@/api/auth";
-import useAuth from "@/hooks/useAuth";
+import { IUserInfo } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import jwtDecode from "jwt-decode";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const LeftSidebarCTA = () => {
+  const [username, setUsername] = useState<string>("");
   const router = useRouter();
+
+  useEffect(() => {
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem("access-token")
+        : null;
+
+    if (token) {
+      const decoded = jwtDecode<IUserInfo>(token);
+      const { username: name } = decoded.UserInfo;
+      setUsername(name);
+    }
+  }, []);
 
   const { refetch } = useQuery(
     ["logout"],
@@ -19,7 +35,6 @@ const LeftSidebarCTA = () => {
   const logout = () => {
     refetch();
     localStorage.removeItem("access-token");
-    localStorage.removeItem("refresh-token");
     toast.success("Logged out");
     router.push("/");
   };
@@ -48,12 +63,12 @@ const LeftSidebarCTA = () => {
           <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
             Please login to modify page contents
           </p>
-          <a
+          <Link
             className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
             href="/login"
           >
             Login
-          </a>
+          </Link>
         </div>
       )}
     </div>
